@@ -47,7 +47,7 @@ public class UserVerticle extends AbstractVerticle {
 
     // receive message from server
     public Future<EventBus> getMsg(EventBus eb) {
-        eb.consumer("USER_RECEIVE", handle -> {
+        eb.consumer("SERVER_PROPAGATION_TOPIC", handle -> {
             System.out.println("@" + uuid + " received message: " + handle.body().toString());
         });
         return Future.future(p -> p.complete(eb));

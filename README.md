@@ -32,6 +32,10 @@ eventbus consumer and sends JSON messages to a `SERVER` address.
 - Registers a consumer on address USER_RECEIVE to print incoming messages.
 - Sends a JSON message to address SERVER with keys Sender and Message.
 
+## Output example:
+
+![img.png](img.png)
+
 ## Addresses used:
 
 - USER_RECEIVE — verticle receives messages here.

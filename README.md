@@ -1,7 +1,7 @@
 # VertexChatApp
 
-Lightweight Vert\.x chat example using Maven and Java\. Demonstrates a client-style `UserVerticle` that registers an
-eventbus consumer and sends JSON messages to a `SERVER` address.
+- Lightweight Vert\.x chat example using Maven and Java\. Demonstrates a client-style `UserVerticle` that registers an eventbus consumer and sends JSON messages to a `SERVER` verticle.
+- It demonstrates how different verticles communicate using the Vert.x Event bus.
 
 ## Requirements:
 
@@ -18,19 +18,18 @@ eventbus consumer and sends JSON messages to a `SERVER` address.
 - Create a new Run Configuration -> Application.
 - Main class: io.vertx.core.Launcher
 - Program arguments: run org.example.MainVerticle
-- VM options (optional to suppress native-access warnings): --enable-native-access=ALL-UNNAMED
 - Use project classpath/module and Run.
 
 ## Expected lifecycle:
 
-- The application deploys verticles (e.g. UserVerticle) which print startup logs and use the Vert.x EventBus.
+- The application deploys verticles which print startup logs and use the Vert.x EventBus.
 
 ## What UserVerticle does:
 
 - Generates a unique user id (UUID) on start.
 - Initializes the Vert.x EventBus.
 - Registers a consumer on address USER_RECEIVE to print incoming messages.
-- Sends a JSON message to address SERVER with keys Sender and Message.
+- Sends a JSON message to address SERVER_PROPAGATION_TOPIC with keys Sender and Message.
 
 ## Output example:
 

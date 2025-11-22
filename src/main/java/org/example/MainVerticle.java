@@ -8,13 +8,13 @@ public class MainVerticle extends AbstractVerticle {
 
     @Override
     public void start(Promise<Void> startPromise) throws Exception {
-        System.out.println("Main Verticle started");
+        System.out.println("\nMain Verticle started\n");
 
         initializeServerVerticle()
                 .compose(this::initializeUserVerticle)
                 .onComplete(handler -> {
                     if (handler.succeeded()) {
-                        System.out.println("Main verticle deployment successful");
+                        System.out.println("\nMain verticle deployment successful\n");
                         startPromise.complete();
                     } else {
                         System.out.println("Main verticle deployment failed");
@@ -26,7 +26,7 @@ public class MainVerticle extends AbstractVerticle {
     public Future<Void> initializeServerVerticle() {
         return vertx.deployVerticle(new ServerVerticle())
                 .compose(id -> { //whenever we do compose, we return a Future
-                    System.out.println("Server Verticle deployed with ID: " + id);
+                    System.out.println("Server Verticle deployed with ID: " + id + "\n");
                     return Future.future(Promise::complete);
                 });
     }

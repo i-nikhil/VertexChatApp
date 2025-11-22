@@ -8,18 +8,26 @@ import io.vertx.core.eventbus.Message;
 
 public class ServerVerticle extends AbstractVerticle {
 
-    EventBus eb = vertx.eventBus();
+    EventBus eb = null;
 
     @Override
     public void start(Promise<Void> startPromise) throws Exception {
         System.out.println("Server is starting...");
-        startPromise
-                .future()
-                .compose(this::receiveMsgHandler);
+        eb = vertx.eventBus();
+        receiveMsgHandler()
+                .onComplete(handler -> {
+                    if (handler.succeeded()) {
+                        System.out.println("Server Verticle started successfully.");
+                        startPromise.complete();
+                    } else {
+                        System.out.println("Server Verticle failed to start.");
+                        startPromise.fail(handler.cause().getMessage());
+                    }
+                });
     }
 
     // receive message from sender
-    public Future<Void> receiveMsgHandler(Void v) {
+    public Future<Void> receiveMsgHandler() {
         eb.consumer("SERVER", this::sendMsg);
         System.out.println("Server is ready to receive messages.");
         return Future.future(Promise::complete);

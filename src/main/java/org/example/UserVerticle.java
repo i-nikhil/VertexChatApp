@@ -16,17 +16,17 @@ public class UserVerticle extends AbstractVerticle {
 
     @Override
     public void start(Promise<Void> startPromise) throws Exception {
-        startPromise
-                .future()
-                .compose(this::setUserId)
+        setUserId()
                 .compose(this::setEventBus)
                 .compose(this::getMsg)
                 .compose(this::sendMsg)
-                .onComplete(handle -> {
-                    if (handle.succeeded()) {
+                .onComplete(handler -> {
+                    if (handler.succeeded()) {
                         System.out.println("User Verticle started for user: " + uuid);
+                        startPromise.complete();
                     } else {
                         System.out.println("User Verticle failed to start for user: " + uuid);
+                        startPromise.fail(handler.cause().getMessage());
                     }
                 });
     }
@@ -39,7 +39,7 @@ public class UserVerticle extends AbstractVerticle {
     }
 
     // assign unique user ID
-    public Future<Void> setUserId(Void v) {
+    public Future<Void> setUserId() {
         uuid = UUID.randomUUID().toString();
         System.out.println("User ID assigned: " + uuid);
         return Future.future(Promise::complete);

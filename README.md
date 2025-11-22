@@ -35,5 +35,5 @@ eventbus consumer and sends JSON messages to a `SERVER` address.
 ## Addresses used:
 
 - USER_RECEIVE — verticle receives messages here.
-- SERVER — messages are sent to this address.
+- SERVER_PROPAGATION_TOPIC — messages are sent to this address.
   <img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/d495ff7d-1201-4a50-a446-ce8cdbe3c6ec" />
